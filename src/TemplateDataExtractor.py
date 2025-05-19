@@ -4,8 +4,33 @@ import cv2
 from PIL import Image
 
 POSITIVE_LABELS = [
-    # [i for i in range(10)],
-    # [i for i in range(100, 200)],
+    [i for i in range(135, 220 + 1)],
+    [i for i in range(960, 1065 + 1)],
+    [i for i in range(1255, 1365 + 1)],
+    [i for i in range(1640, 1760 + 1)],
+    [i for i in range(1955, 2075 + 1)],
+    [i for i in range(3000, 3120 + 1)],
+    [i for i in range(3320, 3435 + 1)],
+    [i for i in range(3705, 3825 + 1)],
+    [i for i in range(4035, 4160 + 1)],
+    [i for i in range(5330, 5510 + 1)],
+    [i for i in range(5785, 5940 + 1)],
+    [i for i in range(6290, 6425 + 1)],
+    [i for i in range(6655, 6785 + 1)],
+    [i for i in range(7765, 7890 + 1)],
+    [i for i in range(8095, 8205 + 1)],
+    [i for i in range(8580, 8675 + 1)],
+    [i for i in range(8840, 8930 + 1)],
+    [i for i in range(11290, 11400 + 1)],
+    [i for i in range(11605, 11730 + 1)],
+    [i for i in range(12330, 12460 + 1)],
+    [i for i in range(12665, 12780 + 1)],
+    [i for i in range(15555, 15665 + 1)],
+    [i for i in range(15860, 15975 + 1)],
+    [i for i in range(16445, 16580 + 1)],
+    [i for i in range(16795, 16910 + 1)],
+    [i for i in range(18225, 18335 + 1)],
+    [i for i in range(18500, 18585 + 1)],
 ]
 
 POSITIVE_LABELS = [item for sublist in POSITIVE_LABELS for item in sublist]
@@ -30,7 +55,7 @@ class TemplateDataExtractor:
             return
 
         for idx, frame in enumerate(self._iterator):
-            if idx % 20:
+            if idx % 10:
                 continue
 
             height = frame.shape[0]
