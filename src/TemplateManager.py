@@ -1,5 +1,6 @@
 import os
 import glob
+from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -22,7 +23,12 @@ class TemplateManager:
 
         return templates
 
-    def populate_templates(self, video_path = "../resources/videos/20241203_104653.mp4"):
+    def populate_templates(self, video_path = "resources/videos/20241203_104653.mp4"):
+        Path(self._path).mkdir(parents=True, exist_ok=True)
+
+        if any(os.scandir(self._path)):
+            return
+
         video_iterator = VideoIterator(video_path)
 
         frame_crops = {
@@ -40,5 +46,3 @@ class TemplateManager:
             crop_frame = frame_crops[idx]
 
             Image.fromarray(crop_frame(frame)).save(f"{self._path}box_{idx}.png")
-
-        print(f"Progress: {idx}")
