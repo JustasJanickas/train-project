@@ -58,19 +58,24 @@ class TemplateDataExtractor:
             if idx % 10:
                 continue
 
-            height = frame.shape[0]
-            width = frame.shape[1]
-            square_length = height // 2
-
-            frame_central_lower_square = frame[square_length:2*square_length, (width - square_length) // 2: (width + square_length) // 2, :]
-
-            resized_frame_square = cv2.resize(
-                frame_central_lower_square,
-                None,
-                fx = 227 / square_length,
-                fy = 227 / square_length,
-                interpolation = cv2.INTER_LINEAR
-            )
+            central_square = self.get_resized_central_square(frame)
 
             dir = self._positive_dir if idx in POSITIVE_LABELS else self._negative_dir
-            Image.fromarray(resized_frame_square).save(f"{dir}{idx}.png")
+            Image.fromarray(central_square).save(f"{dir}{idx}.png")
+
+    @staticmethod
+    def get_resized_central_square(frame):
+        height = frame.shape[0]
+        width = frame.shape[1]
+        square_length = height // 2
+
+        frame_central_lower_square = frame[square_length:2 * square_length,
+                                     (width - square_length) // 2: (width + square_length) // 2, :]
+
+        return cv2.resize(
+            frame_central_lower_square,
+            None,
+            fx=227 / square_length,
+            fy=227 / square_length,
+            interpolation=cv2.INTER_LINEAR
+        )
